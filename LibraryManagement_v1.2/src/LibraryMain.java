@@ -51,6 +51,13 @@ public class LibraryMain {
             System.out.println("\n========= CSV 로그인 시스템 =========");
             System.out.print("아이디: ");
             String id = sc.nextLine();
+
+            // [과제 추가 로직] ID의 첫 글자가 숫자인지 확인
+            if (id != null && !id.isEmpty() && Character.isDigit(id.charAt(0))) {
+                System.out.println("다시 입력하세요.");
+                continue; // 아래 비밀번호 입력으로 내려가지 않고, 다시 아이디 입력창으로 돌아갑니다.
+            }
+
             System.out.print("비밀번호: ");
             String pw = sc.nextLine();
 
