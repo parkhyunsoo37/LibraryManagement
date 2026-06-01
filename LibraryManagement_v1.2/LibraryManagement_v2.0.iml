@@ -26,7 +26,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="mariadb-java-client-3.5.7" level="project" />
-    <orderEntry type="library" name="mariadb-java-client-3.5.8" level="project" />
-    <orderEntry type="library" name="mariadb-java-client-3.5.8 (2)" level="project" />
+    <orderEntry type="library" exported="" name="mariadb-java-client-3.5.8" level="project" />
+    <orderEntry type="library" exported="" name="mariadb-java-client-3.5.8 (2)" level="project" />
   </component>
 </module>
