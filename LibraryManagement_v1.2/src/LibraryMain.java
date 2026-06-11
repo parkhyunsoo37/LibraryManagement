@@ -335,6 +335,13 @@ public class LibraryMain {
         System.out.print("- 접속을 확인 할 IP 주소를 입력하세요: ");
         String ip = sc.nextLine(); // 여기서 사용자가 "127.0.0.1 && dir" 등을 입력함
 
+        String ipPattern = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+
+        if (!ip.matches(ipPattern)) {
+            System.out.println("[보안 오류] 올바른 IP 주소 형식이 아닙니다. 악의적인 명령어 주입이 감지되었습니다.");
+            return; // 취약한 manager.checkServerStatus(ip)로 넘어가지 않고 메서드 종료
+        }
+
         // Manager에게 명령어 실행을 맡김
         manager.checkServerStatus(ip);
     }
