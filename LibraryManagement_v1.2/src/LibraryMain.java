@@ -47,6 +47,8 @@ public class LibraryMain {
      * @see LibraryManager#login(String, String)
      */
     private static boolean performLogin() {
+        String sqlInjectionPattern = ".*['#]|.*--|.*(?i)\\s+OR\\s+.+";
+
         while (true) {
             System.out.println("\n========= CSV 로그인 시스템 =========");
             System.out.print("아이디: ");
@@ -55,11 +57,23 @@ public class LibraryMain {
             // [과제 추가 로직] ID의 첫 글자가 숫자인지 확인
             if (id != null && !id.isEmpty() && Character.isDigit(id.charAt(0))) {
                 System.out.println("다시 입력하세요.");
-                continue; // 아래 비밀번호 입력으로 내려가지 않고, 다시 아이디 입력창으로 돌아갑니다.
+                continue;
+            }
+
+            // 🔒 [보안 패치] ID에 SQL Injection 위험 문자가 포함되어 있는지 검사
+            if (id != null && id.matches(sqlInjectionPattern)) {
+                System.out.println("[보안 경고] 올바르지 않은 입력 형식이 포함되어 있습니다.");
+                continue;
             }
 
             System.out.print("비밀번호: ");
             String pw = sc.nextLine();
+
+            // 🔒 [보안 패치] 비밀번호에도 SQL Injection 위험 문자가 포함되어 있는지 검사
+            if (pw != null && pw.matches(sqlInjectionPattern)) {
+                System.out.println("[보안 경고] 올바르지 않은 입력 형식이 포함되어 있습니다.");
+                continue;
+            }
 
             if (manager.login(id, pw)) return true;
             System.out.println("[오류] 아이디 또는 비밀번호가 틀렸습니다.");
